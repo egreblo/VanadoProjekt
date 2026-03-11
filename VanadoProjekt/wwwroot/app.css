@@ -109,7 +109,6 @@ h1:focus {
     grid-column: 2 / -1;
     justify-self: start;
     padding: 8px 20px;
-    background: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
@@ -161,4 +160,25 @@ h1:focus {
 .form-grid-multi button {
     grid-column: 9 / -1;
     cursor: pointer;
+}
+
+hr {
+    height: 2px;
+    border-width: 0;
+    color: gray;
+    background-color: gray;
+}
+
+.spacer{
+    height:20px;
+}
+
+.gumboviIzmjeneKvara .dodajGumb,
+.form-grid .dodajGumb,
+.form-grid button{
+    background-color: #1003bae4;
+}
+
+.gumboviIzmjeneKvara .eksportGumb {
+    background-color: #6034ffd9;
 }

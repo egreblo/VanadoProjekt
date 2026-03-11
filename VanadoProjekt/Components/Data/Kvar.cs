@@ -10,3 +10,12 @@ public class Kvar
     public DateTime VrijemePocetka { get; set; }
     public DateTime? VrijemeZavrsetka { get; set; }
 }
+
+public class KvarExport
+{
+    public string Ime { get; set; }
+    public string Opis { get; set; }
+    public DateTime VrijemePocetka { get; set; }
+    public DateTime? VrijemeZavrsetka { get; set; }
+    public string StrojIme { get; set; }
+}

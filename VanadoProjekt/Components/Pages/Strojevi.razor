@@ -1,5 +1,4 @@
 ﻿@page "/"
-@inject AppDbContext db
 @inject IJSRuntime JsRuntime
 @inject IHttpClientFactory ClientFactory
 @rendermode InteractiveServer
@@ -17,11 +16,15 @@
             <option value="@k">@k</option>
         }
     </InputSelect>
-    <button @onclick="DodajStroj" style="background-color:#052767">Dodaj</button>
+    <div class="gumboviIzmjeneKvara">
+        <button class="dodajGumb" @onclick="DodajStroj">Dodaj</button>
+        <button class="eksportGumb" @onclick="GenerirajNasumicanStroj">Generiraj nasummičan stroj</button>
+    </div>
+
+
 </div>
 
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
+<hr>
 <h3>Popis svih strojeva</h3>
 
 <div class="form-grid-multi">
@@ -29,7 +32,7 @@
     <input class="form-control" type="text" placeholder="Filter..." @bind="FilterImenaStroja" @bind:event="oninput">
     <InputSelect @bind-Value="FilterKategorija" class="kategorije">
         <option value=@SVE_KATEGORIJE>@SVE_KATEGORIJE</option>
-        @foreach (var k in Enum.GetValues(typeof(KategorijaStroja)))
+        @foreach (var k in Kategorije)
         {
             <option value="@k">@k</option>
         }
@@ -49,16 +52,17 @@
         <input type="date" @bind="datumZavrsetkaUnos" />
         <input type="time" @bind="vrijemeZavrsetkaUnos" />
     </div>
+    <button @onclick="ExportOdabraneKvarove">Preuzmi kvarove u rasponu</button>
+
 </div>
 
-<div style="height:20px"></div>
+<div class="spacer"></div>
 @if (strojevi == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <button @onclick="ExportOdabraneKvarove">Eksport</button>
     <table class="table">
         <thead>
             <tr>
@@ -68,10 +72,8 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var s in strojevi)
+            @foreach (var s in strojevi.Where(IsVisible))
             {
-                if (!IsVisible(s))
-                    continue;
                 <tr class="@( (s.Kvarovi.Count() > 0 &&  s.Kvarovi[s.Kvarovi.Count() - 1].VrijemeZavrsetka == null) ? "highlight-row" : "")">
                     <td style="text-align:right;padding-right:30px">@s.Id</td>
                     <td> <a href="/strojevi/@s.Id">@s.Ime</a></td>
@@ -83,11 +85,9 @@ else
 }
 
 
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-
+<hr>
 <h3>Popis svih kvarova</h3>
-<div style="height:20px"></div>
+<div class="spacer"></div>
 
 @if (kvarovi == null)
 {
@@ -119,15 +119,21 @@ else
         </tbody>
     </table>
 
-    <div style="height:225px;"></div>
+    <div class="spacer"></div>
  }
 
 @code {
+    private HttpClient Http;
 
-    private HttpClient Http => ClientFactory.CreateClient("API");
+    protected override void OnInitialized()
+    {
+        Http = ClientFactory.CreateClient("API");
+    }
+
     List<Stroj> strojevi = new();
     List<Kvar> kvarovi = new();
     Stroj noviStroj = new Stroj();
+    List<KategorijaStroja> Kategorije = Enum.GetValues<KategorijaStroja>().ToList();
 
     private const string SVE_KATEGORIJE = "Sve kategorije";
 
@@ -152,18 +158,27 @@ else
         }
     }
 
-    bool isModalVisible;
 
-    void ShowModal()
+    public void GenerirajNasumicanStroj()
     {
-        isModalVisible = true;
-    }
+        Random r = new Random();
 
-    void HideModal()
-    {
-        isModalVisible = false;
-    }
+        List<string> prefiksImenaStroja = new List<string>
+        {
+            "Aero", "Hydro", "Thermo", "Electro", "Mecha", "Proto", "Nano", "Quantum", "Auto", "Opti"
+        };
 
+        List<string> sufiksImenaStroja = new List<string>
+        {
+            "X", "Pro", "MkII", "Prime", "Ultra", "V3", "Series", "EX", "Gen2", ""
+        };
+
+        string generiranoImeStroja = prefiksImenaStroja[r.Next(prefiksImenaStroja.Count)] + (r.Next(1, 11) * 1000).ToString() + sufiksImenaStroja[r.Next(sufiksImenaStroja.Count)];
+        KategorijaStroja nasumicnaKategorija = Kategorije[r.Next(Kategorije.Count)];
+
+        noviStroj.Ime = generiranoImeStroja;
+        noviStroj.Kategorija = nasumicnaKategorija;
+    }
 
     async Task DodajStroj()
     {
@@ -206,16 +221,15 @@ else
     {
         try
         {
-            List<Kvar> odabraniKvarovi = kvarovi
+            List<KvarExport> odabraniKvarovi = kvarovi
                     .Where(k => IsVisible(k.Stroj))
-                    .Select(k => new Kvar
+                    .Select(k => new KvarExport
                     {
-                        Id = k.Id,
-                        StrojId = k.StrojId,
                         Ime = k.Ime,
                         Opis = k.Opis,
                         VrijemePocetka = k.VrijemePocetka,
-                        VrijemeZavrsetka = k.VrijemeZavrsetka
+                        VrijemeZavrsetka = k.VrijemeZavrsetka,
+                        StrojIme = k.Stroj.Ime
                     })
                     .ToList();
 
@@ -254,15 +268,17 @@ else
             FilterKategorija == SVE_KATEGORIJE ||
             stroj.Kategorija.ToString() == FilterKategorija;
 
+        if (!imeOk || !kategorijaOk)
+            return false;
+
         if (!datumPocetkaUnos.HasValue || !vrijemePocetkaUnos.HasValue)
             return imeOk && kategorijaOk;
-
         DateTime vrijemePocetka = DateTime.SpecifyKind(
             datumPocetkaUnos.Value.Date + vrijemePocetkaUnos.Value.ToTimeSpan(),
             DateTimeKind.Utc
         );
 
-        DateTime vrijemeZavrsetka = vrijemePocetka;
+        DateTime? vrijemeZavrsetka = null;
         if (datumZavrsetkaUnos.HasValue && vrijemeZavrsetkaUnos.HasValue)
         {
             vrijemeZavrsetka = DateTime.SpecifyKind(
@@ -272,9 +288,16 @@ else
         }
 
         bool strojImaKvarove = stroj.Kvarovi.Any(kvar =>
-        {
+{
             DateTime kvarEnd = kvar.VrijemeZavrsetka ?? DateTime.MaxValue;
-            return kvar.VrijemePocetka <= vrijemeZavrsetka && kvarEnd >= vrijemePocetka;
+
+            if (vrijemeZavrsetka == null)
+            {
+                return kvar.VrijemePocetka >= vrijemePocetka;
+            }
+
+            return kvar.VrijemePocetka <= vrijemeZavrsetka &&
+                   kvarEnd >= vrijemePocetka;
         });
 
         return imeOk && kategorijaOk && strojImaKvarove;

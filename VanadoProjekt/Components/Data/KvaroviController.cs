@@ -18,29 +18,27 @@ public class KvaroviController : ControllerBase
     }
 
     [HttpPost("export")]
-    public IActionResult ExportKvarove([FromBody]  List<Kvar> odabraniKvarovi)
+    public IActionResult ExportKvarove([FromBody]  List<KvarExport> odabraniKvarovi)
     {
 
         ExcelPackage.License.SetNonCommercialOrganization("My Noncommercial organization");
         using (var kvar = new ExcelPackage())
         {
             var worksheet = kvar.Workbook.Worksheets.Add("Kvarovi");
-            worksheet.Cells["A1"].Value = "ID";
-            worksheet.Cells["B1"].Value = "Stroj ID";
-            worksheet.Cells["C1"].Value = "Ime";
-            worksheet.Cells["D1"].Value = "Opis";
-            worksheet.Cells["E1"].Value = "Vrijeme Pocetka";
-            worksheet.Cells["F1"].Value = "Vrijeme Zavrsetka";
+            worksheet.Cells["A1"].Value = "Stroj";
+            worksheet.Cells["B1"].Value = "Ime";
+            worksheet.Cells["C1"].Value = "Opis";
+            worksheet.Cells["D1"].Value = "Vrijeme Pocetka";
+            worksheet.Cells["E1"].Value = "Vrijeme Zavrsetka";
 
             for(int i = 0; i < odabraniKvarovi.Count; i++)
             {
                 var k = odabraniKvarovi[i];
-                worksheet.Cells[i + 2, 1].Value = k.Id;
-                worksheet.Cells[i + 2, 2].Value = k.StrojId;
-                worksheet.Cells[i + 2, 3].Value = k.Ime;
-                worksheet.Cells[i + 2, 4].Value = k.Opis;
-                worksheet.Cells[i + 2, 5].Value = k.VrijemePocetka.ToString();
-                worksheet.Cells[i + 2, 6].Value = k.VrijemeZavrsetka.ToString();
+                worksheet.Cells[i + 2, 1].Value = k.StrojIme;
+                worksheet.Cells[i + 2, 2].Value = k.Ime;
+                worksheet.Cells[i + 2, 3].Value = k.Opis;
+                worksheet.Cells[i + 2, 4].Value = k.VrijemePocetka.ToString();
+                worksheet.Cells[i + 2, 5].Value = k.VrijemeZavrsetka.ToString();
             }
             var stream = new MemoryStream(kvar.GetAsByteArray());
 

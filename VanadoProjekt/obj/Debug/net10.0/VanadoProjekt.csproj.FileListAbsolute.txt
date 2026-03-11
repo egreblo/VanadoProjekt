@@ -182,7 +182,6 @@ C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\obj\Debug\net10.0\compre
 C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\obj\Debug\net10.0\compressed\uxbqkokfu0-{0}-lzs9hmhw5n-lzs9hmhw5n.gz
 C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\obj\Debug\net10.0\compressed\137ic4jcgc-{0}-ft71q750bt-ft71q750bt.gz
 C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\obj\Debug\net10.0\compressed\h7o6h3ue0i-{0}-68sgm4vuu9-68sgm4vuu9.gz
-C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\obj\Debug\net10.0\compressed\lj7rfhlvo4-{0}-0x2r58k7t6-0x2r58k7t6.gz
 C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\bin\Debug\net10.0\BlazorBootstrap.dll
 C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\obj\Debug\net10.0\compressed\yxfdm33bor-{0}-63oqyoiiv4-63oqyoiiv4.gz
 C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\obj\Debug\net10.0\compressed\refgsao5tb-{0}-5c2gp224fj-5c2gp224fj.gz
@@ -251,3 +250,5 @@ C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\bin\Debug\net10.0\EPPlus
 C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\bin\Debug\net10.0\EPPlus.Interfaces.dll
 C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\bin\Debug\net10.0\Microsoft.Office.Interop.Excel.dll
 C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\bin\Debug\net10.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\obj\Debug\net10.0\VanadoProjekt.sourcelink.json
+C:\Users\Ivana\source\repos\VanadoProjekt\VanadoProjekt\obj\Debug\net10.0\compressed\lj7rfhlvo4-{0}-xivbghy09l-xivbghy09l.gz

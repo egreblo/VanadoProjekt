@@ -72,7 +72,7 @@
     "Parameters": [
       {
         "Name": "odabraniKvarovi",
-        "Type": "System.Collections.Generic.List\u00601[[Kvar, VanadoProjekt, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[KvarExport, VanadoProjekt, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],
