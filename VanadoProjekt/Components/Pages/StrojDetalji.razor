@@ -1,0 +1,378 @@
+﻿@page "/strojevi/{Id:int}"
+
+@inject IJSRuntime JsRuntime
+@inject IHttpClientFactory ClientFactory
+@rendermode InteractiveServer
+
+<div class="naslovDetaljiStroja">
+
+    <h3>Detalji stroja</h3>
+    @if (strojUKvaru)
+    {
+        <p>
+            <img src="/Images/icons8-warning-48.png" width="40" height="40" />
+        </p>
+        <p style="color:red;"><b>Stroj je trenutno u kvaru!</b></p>
+    }
+</div>
+@if (stroj == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <p><b>Id:</b> @stroj.Id</p>
+    <p><b>Ime:</b> @stroj.Ime</p>
+    <p><b>Kategorija:</b> @stroj.Kategorija</p>
+       
+
+    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+    @if (stanjeIzmjeneKvara == true)
+    {
+        <h4>Izmijeni kvar</h4>
+    }
+    else
+    {
+        <h4>Dodaj kvar</h4>
+    }
+    <div class="form-grid">
+
+        <label>Ime kvara:</label>
+        <input placeholder="Ime kvara" @bind="noviKvar.Ime" />
+
+        <label>Opis:</label>
+        <textarea placeholder="Detaljan opis kvara..." @bind="noviKvar.Opis" />
+
+        <label>Vrijeme Početka:</label>
+        <div class="datetime-group">
+            <input type="date" @bind="datumPocetkaUnos" />
+            <input type="time" @bind="vrijemePocetkaUnos" />
+        </div>
+
+        <label>Vrijeme završetka:</label>
+        <div class="datetime-group">
+            <input type="date" @bind="datumZavrsetkaUnos" />
+            <input type="time" @bind="vrijemeZavrsetkaUnos" />
+        </div>
+
+        @if(stanjeIzmjeneKvara == true)
+        {
+            <div class="gumboviIzmjeneKvara">
+                <button @onclick="IzmijeniKvar" style="background-color: rebeccapurple">Izmijeni</button>
+                <button @onclick="OdustaniOdIzmjeneKvara" style="background-color: darkred">Otkaži</button>
+            </div>
+        }
+        else
+        {
+
+            <button @onclick="DodajKvar" style="background-color:#052767">Dodaj</button>
+        }
+    </div>
+
+    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="20"></th>
+                <th width="20"></th>
+                <th>Ime kvara</th>
+                <th>Opis kvara</th>
+                <th>Vrijeme početka</th>
+                <th>Vrijeme kraja</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var k in kvarovi)
+            {
+                <tr class="@(k.Id == IdKvaraIzmjene ? "highlight-row" : "" )">
+                    <td><button @onclick="() => IspuniFormuZaIzmjenuKvara(k)" style="background: transparent; border: none;"><img src="/Images/icons8-modify-48.png" width="20" height="20" /></button></td>
+                    <td><button @onclick="() => ObrisiKvar(k.Id)" style="background: transparent; border: none;"><img src="/Images/icons8-delete-64.png" width="20" height="20" /></button></td>
+                    <td>@k.Ime</td>
+                    <td>@k.Opis</td>
+                    <td>@k.VrijemePocetka</td>
+                    <td>@k.VrijemeZavrsetka</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <canvas id="chartContainer" width="600" height="100"></canvas>
+
+
+    <div style="height:50px;"></div>
+
+}
+
+@code {
+
+    private HttpClient Http => ClientFactory.CreateClient("API");
+
+    private DateTime? datumPocetkaUnos;
+    private TimeOnly? vrijemePocetkaUnos;
+    private DateTime? datumZavrsetkaUnos;
+    private TimeOnly? vrijemeZavrsetkaUnos;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    Stroj? stroj;
+    List<Kvar>? kvarovi;
+    bool strojUKvaru = false;
+    bool stanjeIzmjeneKvara = false;
+    int IdKvaraIzmjene = -1;
+
+    private const int MAKSIMALAN_BROJ_POZIVA_CRTANJA_GRAFA = 2;
+    Kvar noviKvar = new Kvar();
+    protected override async Task OnInitializedAsync()
+    {
+        stroj = await Http.GetFromJsonAsync<Stroj>($"api/strojevi/{Id}");
+        kvarovi = await Http.GetFromJsonAsync<List<Kvar>>($"api/kvarovi/stroj/{Id}");
+        noviKvar = new Kvar();
+        ProvjeriStrojUKvaru();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {   
+        if (firstRender)
+        {
+            stroj = await Http.GetFromJsonAsync<Stroj>($"api/strojevi/{Id}");
+            kvarovi = await Http.GetFromJsonAsync<List<Kvar>>($"api/kvarovi/stroj/{Id}");
+            await NacrtajGraf();
+        }
+    }
+
+    void ProvjeriStrojUKvaru()
+    {
+        strojUKvaru = kvarovi != null && kvarovi.Any(k => k.VrijemeZavrsetka == null);
+    }
+
+    void OcistiFormu()
+    {
+        noviKvar = new Kvar();
+        noviKvar.Ime = "";
+        noviKvar.Opis = "";
+        datumPocetkaUnos = null;
+        vrijemePocetkaUnos = null;
+        datumZavrsetkaUnos = null;
+        vrijemeZavrsetkaUnos = null;
+    }
+
+    async Task<Kvar> IzgradiKvar()
+    {
+        if (string.IsNullOrWhiteSpace(noviKvar.Ime))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Potrebno je zadati ime kvara!");
+            return null;
+        }
+        if (string.IsNullOrWhiteSpace(noviKvar.Opis))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Potrebno je zadati opis kvara!");
+            return null;
+        }
+
+        DateTime vrijemePocetka = DateTime.Now;
+        DateTime? vrijemeZavrsetka = null;
+
+        if (datumPocetkaUnos.HasValue && vrijemePocetkaUnos.HasValue)
+        {
+            vrijemePocetka = datumPocetkaUnos.Value.Date + vrijemePocetkaUnos.Value.ToTimeSpan();
+        }
+
+        if (datumZavrsetkaUnos.HasValue && vrijemeZavrsetkaUnos.HasValue)
+        {
+            vrijemeZavrsetka = datumZavrsetkaUnos.Value.Date + vrijemeZavrsetkaUnos.Value.ToTimeSpan();
+        }
+        vrijemePocetka = DateTime.SpecifyKind(vrijemePocetka, DateTimeKind.Utc);
+
+        if (vrijemeZavrsetka.HasValue)
+        {
+            vrijemeZavrsetka = DateTime.SpecifyKind(vrijemeZavrsetka.Value, DateTimeKind.Utc);
+        }
+        noviKvar.VrijemePocetka = vrijemePocetka;
+        noviKvar.VrijemeZavrsetka = vrijemeZavrsetka;
+
+        if (vrijemeZavrsetka != null && (vrijemePocetka.Ticks >= vrijemeZavrsetka?.Ticks))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Vrijeme završetka mora biti nakon početka kvara.");
+            return null;
+        }
+
+
+        foreach(Kvar kvar in kvarovi)
+        {
+            if (kvar.Id == noviKvar.Id)
+                continue;
+            if ((kvar.VrijemeZavrsetka != null && noviKvar.VrijemeZavrsetka == null && noviKvar.VrijemePocetka.Ticks <= kvar.VrijemeZavrsetka?.Ticks) ||
+                (kvar.VrijemeZavrsetka == null && noviKvar.VrijemeZavrsetka != null && kvar.VrijemePocetka.Ticks <= noviKvar.VrijemeZavrsetka?.Ticks) ||
+                ((kvar.VrijemePocetka.Ticks <= noviKvar.VrijemeZavrsetka?.Ticks && kvar.VrijemeZavrsetka?.Ticks >= noviKvar.VrijemePocetka.Ticks) &&
+                (noviKvar.VrijemePocetka.Ticks <= kvar.VrijemeZavrsetka?.Ticks && noviKvar.VrijemeZavrsetka?.Ticks >= kvar.VrijemePocetka.Ticks)))
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Postoji aktivan kvar u odabranom razdoblju!");
+                return null;
+            }
+
+        }
+
+        return noviKvar;
+    }
+
+    async Task DodajKvar()
+    {
+        noviKvar = await IzgradiKvar();
+        if (noviKvar == null) return;
+
+        if (kvarovi.Any(k => k.VrijemeZavrsetka == null))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Na stroju već postoji aktivan kvar!");
+            return;
+        }
+
+        var response = await Http.PostAsJsonAsync($"api/kvarovi/stroj/{Id}", noviKvar);
+        if (response.IsSuccessStatusCode)
+        {
+            var dodaniKvar = await response.Content.ReadFromJsonAsync<Kvar>();
+            kvarovi.Add(dodaniKvar);
+            noviKvar = new Kvar();
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Došlo je do pogreške prilikom dodavanja kvara!");
+        }
+        OcistiFormu();
+        ProvjeriStrojUKvaru();
+        await NacrtajGraf();
+    }
+
+    async Task ObrisiKvar(int kvarId)
+    {
+        var response = await Http.DeleteAsync($"api/kvarovi/{kvarId}");
+        if (response.IsSuccessStatusCode)
+        {
+            kvarovi.RemoveAll(k => k.Id == kvarId);
+            StateHasChanged();
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Došlo je do pogreške prilikom brisanja kvara!");
+        }
+        ProvjeriStrojUKvaru();
+        await NacrtajGraf();
+    }
+
+    async Task IspuniFormuZaIzmjenuKvara(Kvar kvar)
+    {
+        IdKvaraIzmjene = kvar.Id;
+        stanjeIzmjeneKvara = true;
+
+        noviKvar.Ime = kvar.Ime;
+        noviKvar.Opis = kvar.Opis;
+        noviKvar.Id = kvar.Id;
+        datumPocetkaUnos = kvar.VrijemePocetka.Date;
+        vrijemePocetkaUnos = TimeOnly.FromDateTime(kvar.VrijemePocetka);
+        datumZavrsetkaUnos = kvar.VrijemeZavrsetka?.Date != null
+                                ? kvar.VrijemeZavrsetka?.Date
+                                : null;
+        vrijemeZavrsetkaUnos = kvar.VrijemeZavrsetka != null
+                                ? TimeOnly.FromDateTime(kvar.VrijemeZavrsetka.Value)
+                                : null;
+
+    }
+
+    void OdustaniOdIzmjeneKvara()
+    {
+        IdKvaraIzmjene = -1;
+        stanjeIzmjeneKvara = false;
+        OcistiFormu();
+    }
+
+    async Task IzmijeniKvar()
+    {
+        Kvar kvar = await IzgradiKvar();
+        if (kvar == null) return;
+        IdKvaraIzmjene = -1;
+        stanjeIzmjeneKvara = false;
+        var response = await Http.PutAsJsonAsync($"api/kvarovi/{kvar.Id}", kvar);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var updatedKvar = await response.Content.ReadFromJsonAsync<Kvar>();
+            var index = kvarovi.FindIndex(k => k.Id == updatedKvar.Id);
+            if (index != -1)
+                kvarovi[index] = updatedKvar;
+
+            StateHasChanged();
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Došlo je do pogreške prilikom izmijenjivanja kvara!");
+        }
+        OcistiFormu();
+        ProvjeriStrojUKvaru();
+        await NacrtajGraf();
+    }
+
+    class Point
+    {
+        public Point(double xs, double ys)
+        {
+            x = xs;
+            y = ys;
+        }
+        public double x { get; set; }
+        public double y { get; set; }
+    }
+
+    private async Task NacrtajGraf()
+    {
+        if (kvarovi == null || !kvarovi.Any())
+            return;
+
+        var labels = new List<string>();
+        List<Point> points = new List<Point>();
+
+        // kvarovi su originalno sortirani od najnovijeg prema najstarijima kako bi aktivan bio pri vrhu liste
+        List<Kvar> kvaroviUnatrag = new List<Kvar>(kvarovi);
+        kvaroviUnatrag.Reverse();
+
+        double najstarijiDatumTicks = 0;
+        foreach (var kvar in kvaroviUnatrag)
+        {
+            double xStart = kvar.VrijemePocetka.Ticks;
+            if (najstarijiDatumTicks == 0)
+                najstarijiDatumTicks = xStart;
+            points.Add(new Point(xStart,0.9));
+            labels.Add(kvar.VrijemePocetka.ToString("yyyy-MM-ddTHH:mm:ss"));
+
+            if (kvar.VrijemeZavrsetka != null)
+            {
+                double xEnd = kvar.VrijemeZavrsetka.Value.Ticks;
+                points.Add(new Point(xEnd, 0.0));
+                labels.Add(kvar.VrijemeZavrsetka?.ToString("yyyy-MM-ddTHH:mm:ss"));
+            }
+        }
+        double trenutnoVrijeme = DateTime.UtcNow.Ticks;
+        Point trenutnaTocka = new Point(trenutnoVrijeme, points[points.Count() - 1].y);
+        points.Add(trenutnaTocka);
+
+        for(int i = 0; i < points.Count; i++)
+        {
+            points[i].x = (points[i].x - najstarijiDatumTicks) / (trenutnoVrijeme - najstarijiDatumTicks) * 100;
+        }
+
+        for (int i = 0; i < MAKSIMALAN_BROJ_POZIVA_CRTANJA_GRAFA; i++)
+        {
+            try
+            {
+                await JsRuntime.InvokeVoidAsync("crtajMojGraf", "chartContainer", labels, points);
+            }
+            catch (JSException ex)
+            {
+                Console.WriteLine("JS error: " + ex.Message);
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
+        }
+    }
+
+ }

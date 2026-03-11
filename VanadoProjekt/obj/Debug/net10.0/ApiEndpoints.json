@@ -1,0 +1,160 @@
+[
+  {
+    "ContainingType": "KvaroviController",
+    "Method": "GetKvarovi",
+    "RelativePath": "api/Kvarovi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KvaroviController",
+    "Method": "GetKvar",
+    "RelativePath": "api/Kvarovi/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KvaroviController",
+    "Method": "DeleteKvar",
+    "RelativePath": "api/Kvarovi/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KvaroviController",
+    "Method": "IzmijeniKvar",
+    "RelativePath": "api/Kvarovi/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "izmijenjeniKvar",
+        "Type": "Kvar",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KvaroviController",
+    "Method": "ExportKvarove",
+    "RelativePath": "api/Kvarovi/export",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "odabraniKvarovi",
+        "Type": "System.Collections.Generic.List\u00601[[Kvar, VanadoProjekt, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KvaroviController",
+    "Method": "GetKvaroviZaStroj",
+    "RelativePath": "api/Kvarovi/stroj/{strojId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strojId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KvaroviController",
+    "Method": "DodajKvar",
+    "RelativePath": "api/Kvarovi/stroj/{strojId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "strojId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "kvar",
+        "Type": "Kvar",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StrojeviController",
+    "Method": "GetStrojevi",
+    "RelativePath": "api/Strojevi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StrojeviController",
+    "Method": "DodajStroj",
+    "RelativePath": "api/Strojevi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "noviStroj",
+        "Type": "Stroj",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StrojeviController",
+    "Method": "GetStroj",
+    "RelativePath": "api/Strojevi/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

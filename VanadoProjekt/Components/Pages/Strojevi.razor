@@ -1,0 +1,282 @@
+﻿@page "/"
+@inject AppDbContext db
+@inject IJSRuntime JsRuntime
+@inject IHttpClientFactory ClientFactory
+@rendermode InteractiveServer
+<PageTitle>Strojevi</PageTitle>
+
+<h3>Dodaj stroj</h3>
+
+<div class="form-grid">
+    <label>Ime stroja:</label>
+    <input placeholder="Ime" @bind="noviStroj.Ime" />
+    <label>Kategorija:</label>
+    <InputSelect @bind-Value="noviStroj.Kategorija" class="kategorije">
+        @foreach (var k in Enum.GetValues(typeof(KategorijaStroja)))
+        {
+            <option value="@k">@k</option>
+        }
+    </InputSelect>
+    <button @onclick="DodajStroj" style="background-color:#052767">Dodaj</button>
+</div>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<h3>Popis svih strojeva</h3>
+
+<div class="form-grid-multi">
+    <label>Pretraži ime stroja: </label>
+    <input class="form-control" type="text" placeholder="Filter..." @bind="FilterImenaStroja" @bind:event="oninput">
+    <InputSelect @bind-Value="FilterKategorija" class="kategorije">
+        <option value=@SVE_KATEGORIJE>@SVE_KATEGORIJE</option>
+        @foreach (var k in Enum.GetValues(typeof(KategorijaStroja)))
+        {
+            <option value="@k">@k</option>
+        }
+    </InputSelect>
+    <button @onclick="OcistiFiltre" style="background: transparent; border: none;"><img src="/Images/icons8-delete-64.png" width="20" height="20" /></button>
+</div>
+
+<div class="form-grid">
+    <label>Stroj ima kvar od:</label>
+    <div class="datetime-group">
+        <input type="date" @bind="datumPocetkaUnos"/>
+        <input type="time" @bind="vrijemePocetkaUnos" />
+    </div>
+    
+    <label>do:</label>
+    <div class="datetime-group">
+        <input type="date" @bind="datumZavrsetkaUnos" />
+        <input type="time" @bind="vrijemeZavrsetkaUnos" />
+    </div>
+</div>
+
+<div style="height:20px"></div>
+@if (strojevi == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button @onclick="ExportOdabraneKvarove">Eksport</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:75px;padding-right:30px; text-align:right">Id</th>
+                <th style="width:1000px">Ime</th>
+                <th>Kategorija</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in strojevi)
+            {
+                if (!IsVisible(s))
+                    continue;
+                <tr class="@( (s.Kvarovi.Count() > 0 &&  s.Kvarovi[s.Kvarovi.Count() - 1].VrijemeZavrsetka == null) ? "highlight-row" : "")">
+                    <td style="text-align:right;padding-right:30px">@s.Id</td>
+                    <td> <a href="/strojevi/@s.Id">@s.Ime</a></td>
+                    <td>@s.Kategorija</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+
+<h3>Popis svih kvarova</h3>
+<div style="height:20px"></div>
+
+@if (kvarovi == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Stroj kvara</th>
+                <th>Ime kvara</th>
+                <th>Opis kvara</th>
+                <th>Vrijeme početka</th>
+                <th>Vrijeme kraja</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var k in kvarovi)
+            {
+                <tr>
+                    <td>@k.Stroj.Ime</td>
+                    <td>@k.Ime</td>
+                    <td>@k.Opis</td>
+                    <td>@k.VrijemePocetka</td>
+                    <td>@k.VrijemeZavrsetka</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div style="height:225px;"></div>
+ }
+
+@code {
+
+    private HttpClient Http => ClientFactory.CreateClient("API");
+    List<Stroj> strojevi = new();
+    List<Kvar> kvarovi = new();
+    Stroj noviStroj = new Stroj();
+
+    private const string SVE_KATEGORIJE = "Sve kategorije";
+
+    public string FilterImenaStroja { get; set; }
+    public string FilterKategorija { get; set; } = SVE_KATEGORIJE;
+
+    private DateTime? datumPocetkaUnos;
+    private TimeOnly? vrijemePocetkaUnos;
+    private DateTime? datumZavrsetkaUnos;
+    private TimeOnly? vrijemeZavrsetkaUnos;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        strojevi = await Http.GetFromJsonAsync<List<Stroj>>("api/strojevi");
+        kvarovi = await Http.GetFromJsonAsync<List<Kvar>>("api/kvarovi");
+        for(int i = 0; i < kvarovi.Count; i++)
+        {
+            Stroj stroj = strojevi.FirstOrDefault(s => s.Id == kvarovi[i].StrojId);
+            kvarovi[i].Stroj = stroj;
+            stroj.Kvarovi.Add(kvarovi[i]);
+        }
+    }
+
+    bool isModalVisible;
+
+    void ShowModal()
+    {
+        isModalVisible = true;
+    }
+
+    void HideModal()
+    {
+        isModalVisible = false;
+    }
+
+
+    async Task DodajStroj()
+    {
+        if (string.IsNullOrWhiteSpace(noviStroj.Ime))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Potrebno je zadati ime stroja!");
+            return;
+        }
+
+        if (strojevi.Any(s => s.Ime == noviStroj.Ime))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Stroj s tim imenom već postoji!");
+            return;
+        }
+
+        var response = await Http.PostAsJsonAsync("api/strojevi", noviStroj);
+        if (response.IsSuccessStatusCode)
+        {
+            var dodaniStroj = await response.Content.ReadFromJsonAsync<Stroj>();
+            strojevi.Add(dodaniStroj);
+            noviStroj = new Stroj();
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Došlo je do pogreške prilikom dodavanja stroja!");
+        }
+    }
+
+    public void OcistiFiltre()
+    {
+        FilterImenaStroja = "";
+        FilterKategorija = SVE_KATEGORIJE;
+        datumPocetkaUnos = null;
+        datumZavrsetkaUnos = null;
+        vrijemePocetkaUnos = null;
+        vrijemeZavrsetkaUnos = null;
+
+    }
+    async Task ExportOdabraneKvarove()
+    {
+        try
+        {
+            List<Kvar> odabraniKvarovi = kvarovi
+                    .Where(k => IsVisible(k.Stroj))
+                    .Select(k => new Kvar
+                    {
+                        Id = k.Id,
+                        StrojId = k.StrojId,
+                        Ime = k.Ime,
+                        Opis = k.Opis,
+                        VrijemePocetka = k.VrijemePocetka,
+                        VrijemeZavrsetka = k.VrijemeZavrsetka
+                    })
+                    .ToList();
+
+            if (!odabraniKvarovi.Any())
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Nema kvarova za export!");
+                return;
+            }
+
+            using var response = await Http.PostAsJsonAsync("api/kvarovi/export", odabraniKvarovi);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var fileBytes = await response.Content.ReadAsByteArrayAsync();
+                await JsRuntime.InvokeVoidAsync("BlazorDownloadFile", "kvarovi.xlsx", Convert.ToBase64String(fileBytes));
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                await JsRuntime.InvokeVoidAsync("alert", $"Došlo je do pogreške: {error}");
+            }
+        }
+        catch (Exception ex)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", $"Greška: {ex.Message}");
+        }
+    }
+
+    public bool IsVisible(Stroj stroj)
+    {
+        bool imeOk =
+            string.IsNullOrWhiteSpace(FilterImenaStroja) ||
+            stroj.Ime.Contains(FilterImenaStroja, StringComparison.OrdinalIgnoreCase);
+
+        bool kategorijaOk =
+            FilterKategorija == SVE_KATEGORIJE ||
+            stroj.Kategorija.ToString() == FilterKategorija;
+
+        if (!datumPocetkaUnos.HasValue || !vrijemePocetkaUnos.HasValue)
+            return imeOk && kategorijaOk;
+
+        DateTime vrijemePocetka = DateTime.SpecifyKind(
+            datumPocetkaUnos.Value.Date + vrijemePocetkaUnos.Value.ToTimeSpan(),
+            DateTimeKind.Utc
+        );
+
+        DateTime vrijemeZavrsetka = vrijemePocetka;
+        if (datumZavrsetkaUnos.HasValue && vrijemeZavrsetkaUnos.HasValue)
+        {
+            vrijemeZavrsetka = DateTime.SpecifyKind(
+                datumZavrsetkaUnos.Value.Date + vrijemeZavrsetkaUnos.Value.ToTimeSpan(),
+                DateTimeKind.Utc
+            );
+        }
+
+        bool strojImaKvarove = stroj.Kvarovi.Any(kvar =>
+        {
+            DateTime kvarEnd = kvar.VrijemeZavrsetka ?? DateTime.MaxValue;
+            return kvar.VrijemePocetka <= vrijemeZavrsetka && kvarEnd >= vrijemePocetka;
+        });
+
+        return imeOk && kategorijaOk && strojImaKvarove;
+    }
+}
