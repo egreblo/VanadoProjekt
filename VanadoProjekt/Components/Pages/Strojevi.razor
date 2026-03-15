@@ -125,11 +125,6 @@ else
 @code {
     private HttpClient Http;
 
-    protected override void OnInitialized()
-    {
-        Http = ClientFactory.CreateClient("API");
-    }
-
     List<Stroj> strojevi = new();
     List<Kvar> kvarovi = new();
     Stroj noviStroj = new Stroj();
@@ -145,6 +140,10 @@ else
     private DateTime? datumZavrsetkaUnos;
     private TimeOnly? vrijemeZavrsetkaUnos;
 
+    protected override void OnInitialized()
+    {
+        Http = ClientFactory.CreateClient("API");
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -157,7 +156,6 @@ else
             stroj.Kvarovi.Add(kvarovi[i]);
         }
     }
-
 
     public void GenerirajNasumicanStroj()
     {
@@ -221,8 +219,18 @@ else
     {
         try
         {
+            DateTime? filterVrijeme = null;
+
+            if (datumPocetkaUnos.HasValue && vrijemePocetkaUnos.HasValue)
+            {
+                filterVrijeme = datumPocetkaUnos.Value
+                    .Add(vrijemePocetkaUnos.Value.ToTimeSpan());
+            }
+
             List<KvarExport> odabraniKvarovi = kvarovi
-                    .Where(k => IsVisible(k.Stroj))
+                    .Where(k =>
+                        IsVisible(k.Stroj) &&
+                        (filterVrijeme == null || k.VrijemePocetka > filterVrijeme))
                     .Select(k => new KvarExport
                     {
                         Ime = k.Ime,
@@ -288,7 +296,7 @@ else
         }
 
         bool strojImaKvarove = stroj.Kvarovi.Any(kvar =>
-{
+        {
             DateTime kvarEnd = kvar.VrijemeZavrsetka ?? DateTime.MaxValue;
 
             if (vrijemeZavrsetka == null)

@@ -134,6 +134,7 @@ else
 
     private const int MAKSIMALAN_BROJ_POZIVA_CRTANJA_GRAFA = 2;
     Kvar noviKvar = new Kvar();
+
     protected override async Task OnInitializedAsync()
     {
         stroj = await Http.GetFromJsonAsync<Stroj>($"api/strojevi/{Id}");
@@ -153,6 +154,7 @@ else
         }
     }
 
+    // Pomoćna funkcija koja računa postotak vremena koje je stroj proveo u kvaru od zadatog početnog vremena do sadašnjeg trenutka
     List<double?> IzracunajPostotakVremenaUKvaru(DateTime startTime)
     {
 
@@ -177,11 +179,13 @@ else
         return new List<double?> { 100 - postotakUKvaru, postotakUKvaru };
     }
 
+    // Pomoćna funkcija koja provjerava postoji li aktivan kvar na stroju i postavlja boolean strojUKvaru
     void ProvjeriStrojUKvaru()
     {
         strojUKvaru = kvarovi != null && kvarovi.Any(k => k.VrijemeZavrsetka == null);
     }
 
+    // Pomoćna funkcija koja čisti formu nakon dodavanja ili izmjene kvara
     void OcistiFormu()
     {
         noviKvar = new Kvar();
@@ -193,6 +197,7 @@ else
         vrijemeZavrsetkaUnos = null;
     }
 
+    // Funkcija koja generira nasumičan kvar, služi za jednostavnije testiranje
     public void GenerirajNasumicanKvar()
     {
         Random r = new Random();
@@ -226,59 +231,58 @@ else
         DateTime pocetakRaspona = DateTime.SpecifyKind(new DateTime(DateTime.Now.Year, 1, 1), DateTimeKind.Utc);
         DateTime krajRaspona = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
-        if (kvarovi.Count > 0)
+        var kvaroviURasponu = kvarovi
+        .Where(k => k.VrijemePocetka >= pocetakRaspona)
+        .OrderBy(k => k.VrijemePocetka)
+        .ToList();
+        List<(DateTime start, DateTime end)> slobodniIntervali = new();
+
+        DateTime trenutniStart = pocetakRaspona;
+
+        foreach (var k in kvaroviURasponu)
         {
-            var sortiraniKvarovi = kvarovi.OrderBy(k => k.VrijemePocetka).ToList();
+            DateTime krajKvara = k.VrijemeZavrsetka ?? krajRaspona;
 
-            int index = r.Next(sortiraniKvarovi.Count);
-            Kvar odabraniKvar = sortiraniKvarovi[index];
-
-            bool prostorPrije = r.Next(0, 2) == 0;
-
-            if (prostorPrije)
+            if (k.VrijemePocetka > trenutniStart)
             {
-                if (index > 0)
-                {
-                    Kvar prethodniKvar = sortiraniKvarovi[index - 1];
-
-                    if (prethodniKvar.VrijemeZavrsetka.HasValue)
-                    {
-                        pocetakRaspona = prethodniKvar.VrijemeZavrsetka.Value;
-                    }
-                    else
-                    {
-                        pocetakRaspona = odabraniKvar.VrijemePocetka;
-                    }
-                }
-
-                krajRaspona = odabraniKvar.VrijemePocetka;
-            }
-            else
-            {
-                pocetakRaspona = odabraniKvar.VrijemeZavrsetka ?? odabraniKvar.VrijemePocetka.AddHours(1);
-
-                if (index < sortiraniKvarovi.Count - 1)
-                {
-                    Kvar sljedeciKvar = sortiraniKvarovi[index + 1];
-                    krajRaspona = sljedeciKvar.VrijemePocetka;
-                }
+                slobodniIntervali.Add((trenutniStart, k.VrijemePocetka));
             }
 
-            if (pocetakRaspona >= krajRaspona)
-            {
-                krajRaspona = pocetakRaspona.AddHours(1);
-            }
+            trenutniStart = krajKvara;
         }
 
-        var rangePocetka = (krajRaspona - pocetakRaspona).TotalSeconds;
-        double sekundePocetka = r.NextDouble() * rangePocetka;
-        var vrijemePocetkaKvara = pocetakRaspona.AddSeconds(sekundePocetka);
+        if (trenutniStart < krajRaspona)
+        {
+            slobodniIntervali.Add((trenutniStart, krajRaspona));
+        }
 
-        var rangeKraja = (krajRaspona - vrijemePocetkaKvara).TotalSeconds;
+        var tezine = slobodniIntervali
+            .Select(i => (i.end - i.start).TotalSeconds)
+            .ToList();
+
+        double total = tezine.Sum();
+        double rnd = r.NextDouble() * total;
+
+        double cumulative = 0;
+        int index = 0;
+
+        for (; index < tezine.Count; index++)
+        {
+            cumulative += tezine[index];
+            if (rnd < cumulative)
+                break;
+        }
+
+        var odabrani = slobodniIntervali[index];
+
+        double range = (odabrani.end - odabrani.start).TotalSeconds;
+        double sekunde = r.NextDouble() * range;
+
+        DateTime vrijemePocetkaKvara = odabrani.start.AddSeconds(sekunde);
+
+        var rangeKraja = (odabrani.end - vrijemePocetkaKvara).TotalSeconds;
         double sekundeKraja = r.NextDouble() * rangeKraja * 1 / 10;
-        var vrijemeKrajaKvara = vrijemePocetkaKvara.AddSeconds(sekundeKraja);
-
-
+        DateTime vrijemeKrajaKvara = vrijemePocetkaKvara.AddSeconds(sekundeKraja);
 
         noviKvar.Ime = imenaKvarova[r.Next(imenaKvarova.Count)];
         noviKvar.Opis = opis;
@@ -287,9 +291,9 @@ else
         datumZavrsetkaUnos = vrijemeKrajaKvara.Date;
         vrijemeZavrsetkaUnos = TimeOnly.FromDateTime(vrijemeKrajaKvara);
         StateHasChanged();
-
     }
 
+    // Funkcija za provjeru vrijednosti unosa novoga kvara
     async Task<Kvar> IzgradiKvar()
     {
         if (string.IsNullOrWhiteSpace(noviKvar.Ime))
@@ -349,7 +353,7 @@ else
         return noviKvar;
     }
 
-
+    // Funkcija za dodavanje kvara
     async Task DodajKvar()
     {
         Kvar kvarZaIzgradnju = await IzgradiKvar();
@@ -378,6 +382,7 @@ else
         await NacrtajGraf();
     }
 
+    // Funkcija za brisanje kvara
     async Task ObrisiKvar(int kvarId)
     {
         var response = await Http.DeleteAsync($"api/kvarovi/{kvarId}");
@@ -394,6 +399,7 @@ else
         await NacrtajGraf();
     }
 
+    // Funkcija za ispunjavanje forme podacima postojećeg kvara
     async Task IspuniFormuZaIzmjenuKvara(Kvar kvar)
     {
         IdKvaraIzmjene = kvar.Id;
@@ -420,6 +426,7 @@ else
         OcistiFormu();
     }
 
+    // Funkcija koja izmijenjuje postojeći kvar novim vrijednostima
     async Task IzmijeniKvar()
     {
         Kvar kvar = await IzgradiKvar();
@@ -457,6 +464,7 @@ else
         public double y { get; set; }
     }
 
+    // Pomoćna funkcija za iscrtavanje linijskog i pie grafa
     private async Task NacrtajGraf()
     {
         if (kvarovi == null || !kvarovi.Any())
@@ -534,7 +542,5 @@ else
 
         await pieChart.InitializeAsync(chartData, options);
         await pieChart.UpdateAsync(chartData, options);
-        
     }
-
  }
