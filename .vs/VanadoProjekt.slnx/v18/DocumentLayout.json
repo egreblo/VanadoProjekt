@@ -3,40 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\pages\\strojevi.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\pages\\strojevi.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\pages\\strojdetalji.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\pages\\strojdetalji.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\pages\\notfound.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\pages\\notfound.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\wwwroot\\chart.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\wwwroot\\chart.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,116 +23,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Routes.razor",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Routes.razor",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Routes.razor",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Routes.razor",
-              "RelativeToolTip": "VanadoProjekt\\Components\\Routes.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-15T11:56:09.229Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Layout\\NavMenu.razor",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "VanadoProjekt\\Components\\Layout\\NavMenu.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-15T11:55:54.624Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainLayout.razor",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Layout\\MainLayout.razor",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Layout\\MainLayout.razor",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Layout\\MainLayout.razor",
-              "RelativeToolTip": "VanadoProjekt\\Components\\Layout\\MainLayout.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-15T11:55:53.686Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "NotFound.razor",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Pages\\NotFound.razor",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Pages\\NotFound.razor",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Pages\\NotFound.razor",
-              "RelativeToolTip": "VanadoProjekt\\Components\\Pages\\NotFound.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-15T11:55:47.25Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Data\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\AppDbContext.cs",
-              "RelativeToolTip": "VanadoProjekt\\Components\\Data\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-15T11:46:29.679Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "App.razor",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\App.razor",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\App.razor",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\App.razor",
-              "RelativeToolTip": "VanadoProjekt\\Components\\App.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-15T11:46:26.113Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "chart.js",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\wwwroot\\chart.js",
-              "RelativeDocumentMoniker": "VanadoProjekt\\wwwroot\\chart.js",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\wwwroot\\chart.js",
-              "RelativeToolTip": "VanadoProjekt\\wwwroot\\chart.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-03-15T08:26:36.191Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Strojevi.razor",
               "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Pages\\Strojevi.razor",
               "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Pages\\Strojevi.razor",
               "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Pages\\Strojevi.razor",
               "RelativeToolTip": "VanadoProjekt\\Components\\Pages\\Strojevi.razor",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABQBAAAAAAAAAAAAACgBAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-03-10T12:54:56.312Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "StrojDetalji.razor",
               "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Pages\\StrojDetalji.razor",
               "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Pages\\StrojDetalji.razor",
               "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Pages\\StrojDetalji.razor",
               "RelativeToolTip": "VanadoProjekt\\Components\\Pages\\StrojDetalji.razor",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAAAJcAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAOABAAAAAAAAAAAAAMwAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-03-09T09:38:19.394Z",
               "EditorCaption": ""
