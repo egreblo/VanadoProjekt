@@ -141,15 +141,6 @@
           "lib/net10.0/EPPlus.Interfaces.dll": {}
         }
       },
-      "ExcelPackage/1.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/Microsoft.Office.Interop.Excel.dll": {}
-        },
-        "runtime": {
-          "lib/Microsoft.Office.Interop.Excel.dll": {}
-        }
-      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -1114,18 +1105,6 @@
         "lib/netstandard2.1/EPPlus.Interfaces.dll",
         "license.md",
         "readme.md"
-      ]
-    },
-    "ExcelPackage/1.0.0": {
-      "sha512": "0nysRe2k4NSrScTXt8yklUsTgelWKt+y6lM76vg+kOk9S/3/SvR9gojNjbeYCLe1x2f3pAkz1xZTuHg2nvDbtg==",
-      "type": "package",
-      "path": "excelpackage/1.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "excelpackage.1.0.0.nupkg.sha512",
-        "excelpackage.nuspec",
-        "lib/Microsoft.Office.Interop.Excel.dll"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -2818,7 +2797,6 @@
       "Blazorise.Icons.FontAwesome >= 2.0.2",
       "ChartJs.Blazor >= 1.1.0",
       "EPPlus >= 8.5.0",
-      "ExcelPackage >= 1.0.0",
       "Microsoft.AspNetCore.App.Internal.Assets >= 10.0.3",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 10.0.3",
@@ -2898,10 +2876,6 @@
           "EPPlus": {
             "target": "Package",
             "version": "[8.5.0, )"
-          },
-          "ExcelPackage": {
-            "target": "Package",
-            "version": "[1.0.0, )"
           },
           "Microsoft.AspNetCore.App.Internal.Assets": {
             "suppressParent": "All",
@@ -3362,17 +3336,5 @@
         }
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'ExcelPackage 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
-      "libraryId": "ExcelPackage",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  }
 }

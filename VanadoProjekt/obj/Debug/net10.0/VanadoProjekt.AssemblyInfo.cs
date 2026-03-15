@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VanadoProjekt")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20be3c32cb406e6f0def4c6e06f9e38f06f82609")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66a851d8366fe5234e25deb7b9b2527c2a25d8f3")]
 [assembly: System.Reflection.AssemblyProductAttribute("VanadoProjekt")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VanadoProjekt")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -14,7 +14,6 @@
           "Blazorise.Icons.FontAwesome": "2.0.2",
           "ChartJs.Blazor": "1.1.0",
           "EPPlus": "8.5.0",
-          "ExcelPackage": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "10.0.3",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0"
         },
@@ -99,14 +98,6 @@
           "lib/net10.0/EPPlus.Interfaces.dll": {
             "assemblyVersion": "8.4.0.0",
             "fileVersion": "8.4.0.0"
-          }
-        }
-      },
-      "ExcelPackage/1.0.0": {
-        "runtime": {
-          "lib/Microsoft.Office.Interop.Excel.dll": {
-            "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.0.4518.1014"
           }
         }
       },
@@ -642,13 +633,6 @@
       "sha512": "sha512-QaEzDFG2vcQMPqUmoWv0vBTObtH8hffQmyDr2WkqRYF/nFSn2pkdBB4vudcd/EIv0N8M3P1fzzkPQgEWsFnUmA==",
       "path": "epplus.interfaces/8.4.0",
       "hashPath": "epplus.interfaces.8.4.0.nupkg.sha512"
-    },
-    "ExcelPackage/1.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-0nysRe2k4NSrScTXt8yklUsTgelWKt+y6lM76vg+kOk9S/3/SvR9gojNjbeYCLe1x2f3pAkz1xZTuHg2nvDbtg==",
-      "path": "excelpackage/1.0.0",
-      "hashPath": "excelpackage.1.0.0.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",

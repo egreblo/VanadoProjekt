@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AXWt8s3LYmA=",
+  "dgSpecHash": "1E5dhPWI6ws=",
   "success": true,
   "projectFilePath": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\VanadoProjekt.csproj",
   "expectedPackageFiles": [
@@ -12,7 +12,6 @@
     "C:\\Users\\Ivana\\.nuget\\packages\\chartjs.blazor\\1.1.0\\chartjs.blazor.1.1.0.nupkg.sha512",
     "C:\\Users\\Ivana\\.nuget\\packages\\epplus\\8.5.0\\epplus.8.5.0.nupkg.sha512",
     "C:\\Users\\Ivana\\.nuget\\packages\\epplus.interfaces\\8.4.0\\epplus.interfaces.8.4.0.nupkg.sha512",
-    "C:\\Users\\Ivana\\.nuget\\packages\\excelpackage\\1.0.0\\excelpackage.1.0.0.nupkg.sha512",
     "C:\\Users\\Ivana\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Ivana\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.3\\microsoft.aspnetcore.app.internal.assets.10.0.3.nupkg.sha512",
     "C:\\Users\\Ivana\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",
@@ -45,18 +44,5 @@
     "C:\\Users\\Ivana\\.nuget\\packages\\system.composition.typedparts\\9.0.0\\system.composition.typedparts.9.0.0.nupkg.sha512",
     "C:\\Users\\Ivana\\.nuget\\packages\\system.security.cryptography.pkcs\\10.0.0\\system.security.cryptography.pkcs.10.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "message": "Package 'ExcelPackage 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
-      "projectPath": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\VanadoProjekt.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\VanadoProjekt.csproj",
-      "libraryId": "ExcelPackage",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  "logs": []
 }
