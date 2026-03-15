@@ -182,3 +182,13 @@ hr {
 .gumboviIzmjeneKvara .eksportGumb {
     background-color: #6034ffd9;
 }
+
+.dodaj-kvar-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 200px;
+}
+
+.box {
+    flex: 1;
+}

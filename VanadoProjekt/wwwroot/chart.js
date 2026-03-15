@@ -42,7 +42,7 @@ function crtajMojGraf(divId, labels, points) {
                     ticks: {
                         stepSize: 1,
                         callback: function (value) {
-                            return value === 0 ? 'NEAKTIVAN' : 'AKTIVAN';
+                            return value === 0 ? 'OPERATIVNO STANJE' : 'STANJE KVARA';
                         }
                     },
                     title: { display: true, text: '' }

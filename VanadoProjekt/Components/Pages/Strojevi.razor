@@ -18,7 +18,7 @@
     </InputSelect>
     <div class="gumboviIzmjeneKvara">
         <button class="dodajGumb" @onclick="DodajStroj">Dodaj</button>
-        <button class="eksportGumb" @onclick="GenerirajNasumicanStroj">Generiraj nasummičan stroj</button>
+        <button class="eksportGumb" @onclick="GenerirajNasumicanStroj">Generiraj nasumičan stroj</button>
     </div>
 
 
@@ -74,7 +74,7 @@ else
         <tbody>
             @foreach (var s in strojevi.Where(IsVisible))
             {
-                <tr class="@( (s.Kvarovi.Count() > 0 &&  s.Kvarovi[s.Kvarovi.Count() - 1].VrijemeZavrsetka == null) ? "highlight-row" : "")">
+                <tr class="@( (s.Kvarovi.Count() > 0 &&  s.Kvarovi[0].VrijemeZavrsetka == null) ? "highlight-row" : "")">
                     <td style="text-align:right;padding-right:30px">@s.Id</td>
                     <td> <a href="/strojevi/@s.Id">@s.Ime</a></td>
                     <td>@s.Kategorija</td>

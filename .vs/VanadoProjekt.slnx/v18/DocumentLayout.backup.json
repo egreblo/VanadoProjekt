@@ -11,28 +11,24 @@
       "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\pages\\strojevi.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\wwwroot\\chart.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\wwwroot\\chart.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\data\\kvarovicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\data\\kvarovicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\data\\kvar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\data\\kvar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|c:\\users\\ivana\\source\\repos\\vanadoprojekt\\vanadoprojekt\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C04F2178-8CCB-D3E6-009F-2704E99B55A0}|VanadoProjekt\\VanadoProjekt.csproj|solutionrelative:vanadoprojekt\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,40 +43,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "app.css",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\wwwroot\\app.css",
-              "RelativeDocumentMoniker": "VanadoProjekt\\wwwroot\\app.css",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\wwwroot\\app.css",
-              "RelativeToolTip": "VanadoProjekt\\wwwroot\\app.css",
-              "ViewState": "AgIAAKMAAAAAAAAAAAAAALcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-03-11T09:19:29.052Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Kvar.cs",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\Kvar.cs",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Data\\Kvar.cs",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\Kvar.cs",
-              "RelativeToolTip": "VanadoProjekt\\Components\\Data\\Kvar.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAxwA0AAAAXAAAAAAAAAA==",
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "VanadoProjekt\\Components\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-11T09:07:29.567Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "_Imports.razor",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\_Imports.razor",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\_Imports.razor",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\_Imports.razor",
-              "RelativeToolTip": "VanadoProjekt\\Components\\_Imports.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-10T19:38:37.95Z",
+              "WhenOpened": "2026-03-15T11:46:29.679Z",
               "EditorCaption": ""
             },
             {
@@ -91,22 +61,48 @@
               "RelativeDocumentMoniker": "VanadoProjekt\\Components\\App.razor",
               "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\App.razor",
               "RelativeToolTip": "VanadoProjekt\\Components\\App.razor",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAQwCEAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-10T19:24:38.882Z",
+              "WhenOpened": "2026-03-15T11:46:26.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Kvar.cs",
+              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\Kvar.cs",
+              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Data\\Kvar.cs",
+              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\Kvar.cs",
+              "RelativeToolTip": "VanadoProjekt\\Components\\Data\\Kvar.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAxwA8AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T08:24:36.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "app.css",
+              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\wwwroot\\app.css",
+              "RelativeDocumentMoniker": "VanadoProjekt\\wwwroot\\app.css",
+              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\wwwroot\\app.css",
+              "RelativeToolTip": "VanadoProjekt\\wwwroot\\app.css",
+              "ViewState": "AgIAAKUAAAAAAAAAAAAAAKoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-03-15T10:47:23.782Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Program.cs",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Program.cs",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Program.cs",
-              "RelativeToolTip": "VanadoProjekt\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-10T19:23:46.238Z",
+              "Title": "chart.js",
+              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\wwwroot\\chart.js",
+              "RelativeDocumentMoniker": "VanadoProjekt\\wwwroot\\chart.js",
+              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\wwwroot\\chart.js",
+              "RelativeToolTip": "VanadoProjekt\\wwwroot\\chart.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-15T08:26:36.191Z",
               "EditorCaption": ""
             },
             {
@@ -117,7 +113,7 @@
               "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Pages\\Strojevi.razor",
               "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Pages\\Strojevi.razor",
               "RelativeToolTip": "VanadoProjekt\\Components\\Pages\\Strojevi.razor",
-              "ViewState": "AgIAAJsAAAAAAAAAAIAwwKIAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-03-10T12:54:56.312Z",
               "EditorCaption": ""
@@ -130,22 +126,9 @@
               "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Pages\\StrojDetalji.razor",
               "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Pages\\StrojDetalji.razor",
               "RelativeToolTip": "VanadoProjekt\\Components\\Pages\\StrojDetalji.razor",
-              "ViewState": "AgIAAMsAAAAAAAAAAAAlwOgAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAIBAAAAAAAAAAAwwBABAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-03-09T09:38:19.394Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "KvaroviController.cs",
-              "DocumentMoniker": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\KvaroviController.cs",
-              "RelativeDocumentMoniker": "VanadoProjekt\\Components\\Data\\KvaroviController.cs",
-              "ToolTip": "C:\\Users\\Ivana\\source\\repos\\VanadoProjekt\\VanadoProjekt\\Components\\Data\\KvaroviController.cs",
-              "RelativeToolTip": "VanadoProjekt\\Components\\Data\\KvaroviController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-09T06:59:50.41Z",
               "EditorCaption": ""
             }
           ]

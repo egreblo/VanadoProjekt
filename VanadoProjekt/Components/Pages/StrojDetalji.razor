@@ -28,48 +28,53 @@ else
 
     <hr>
 
-    @if (stanjeIzmjeneKvara == true)
-    {
-        <h4>Izmijeni kvar</h4>
-    }
-    else
-    {
-        <h4>Dodaj kvar</h4>
-    }
-    <div class="form-grid">
-
-        <label>Ime kvara:</label>
-        <input placeholder="Ime kvara" @bind="noviKvar.Ime" />
-
-        <label>Opis:</label>
-        <textarea placeholder="Detaljan opis kvara..." @bind="noviKvar.Opis" />
-
-        <label>Vrijeme Početka:</label>
-        <div class="datetime-group">
-            <input type="date" @bind="datumPocetkaUnos" />
-            <input type="time" @bind="vrijemePocetkaUnos" />
-        </div>
-
-        <label>Vrijeme završetka:</label>
-        <div class="datetime-group">
-            <input type="date" @bind="datumZavrsetkaUnos" />
-            <input type="time" @bind="vrijemeZavrsetkaUnos" />
-        </div>
-
-        @if(stanjeIzmjeneKvara == true)
+    <div class="dodaj-kvar-container">
+        <div class="box">
+        @if (stanjeIzmjeneKvara == true)
         {
-            <div class="gumboviIzmjeneKvara">
-                <button @onclick="IzmijeniKvar" style="background-color: rebeccapurple">Izmijeni</button>
-                <button @onclick="OdustaniOdIzmjeneKvara" style="background-color: darkred">Otkaži</button>
-            </div>
+            <h4>Izmijeni kvar</h4>
         }
         else
         {
-            <div class="gumboviIzmjeneKvara">
-                <button class="dodajGumb" @onclick="DodajKvar">Dodaj</button>
-                <button class="dodajGumb" @onclick="GenerirajNasumicanKvar">Generiraj nasumičan kvar</button>
-            </div>
+            <h4>Dodaj kvar</h4>
         }
+        <div class="form-grid">
+                <label>Ime kvara:</label>
+                <input placeholder="Ime kvara" @bind="noviKvar.Ime" />
+
+                <label>Opis:</label>
+                <textarea placeholder="Detaljan opis kvara..." @bind="noviKvar.Opis" />
+
+                <label>Vrijeme Početka:</label>
+                <div class="datetime-group">
+                    <input type="date" @bind="datumPocetkaUnos" />
+                    <input type="time" @bind="vrijemePocetkaUnos" />
+                </div>
+
+                <label>Vrijeme završetka:</label>
+                <div class="datetime-group">
+                    <input type="date" @bind="datumZavrsetkaUnos" />
+                    <input type="time" @bind="vrijemeZavrsetkaUnos" />
+                </div>
+
+                @if(stanjeIzmjeneKvara == true)
+                {
+                    <div class="gumboviIzmjeneKvara">
+                        <button @onclick="IzmijeniKvar" style="background-color: rebeccapurple">Izmijeni</button>
+                        <button @onclick="OdustaniOdIzmjeneKvara" style="background-color: darkred">Otkaži</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="gumboviIzmjeneKvara">
+                        <button class="dodajGumb" @onclick="DodajKvar">Dodaj</button>
+                        <button class="dodajGumb" @onclick="GenerirajNasumicanKvar">Generiraj nasumičan kvar</button>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="box"><PieChart @ref="pieChart" Width="300" Height="300" /></div>
     </div>
 
     <hr>
@@ -111,6 +116,7 @@ else
 @code {
 
     private HttpClient Http => ClientFactory.CreateClient("API");
+    private PieChart pieChart = default!;
 
     private DateTime? datumPocetkaUnos;
     private TimeOnly? vrijemePocetkaUnos;
@@ -135,6 +141,8 @@ else
         noviKvar = new Kvar();
         ProvjeriStrojUKvaru();
     }
+
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {   
         if (firstRender)
@@ -143,6 +151,30 @@ else
             kvarovi = await Http.GetFromJsonAsync<List<Kvar>>($"api/kvarovi/stroj/{Id}");
             await NacrtajGraf();
         }
+    }
+
+    List<double?> IzracunajPostotakVremenaUKvaru(DateTime startTime)
+    {
+
+        DateTime currentTime = DateTime.Now;
+
+        double ukupnoVrijemeUKvaru = 0;
+        foreach(Kvar kvar in kvarovi)
+        {
+            if(kvar.VrijemeZavrsetka == null)
+            {
+                ukupnoVrijemeUKvaru += (currentTime - kvar.VrijemePocetka).Ticks;
+            }
+            else
+            {
+                ukupnoVrijemeUKvaru += (kvar.VrijemeZavrsetka.Value - kvar.VrijemePocetka).Ticks;
+            }
+        }
+        double ukupnoVrijeme = (currentTime - startTime).Ticks;
+
+        int  postotakUKvaru = (int)(ukupnoVrijemeUKvaru / ukupnoVrijeme * 100);
+
+        return new List<double?> { 100 - postotakUKvaru, postotakUKvaru };
     }
 
     void ProvjeriStrojUKvaru()
@@ -170,7 +202,7 @@ else
                 "Zastoj motora",
                 "Curanje ulja",
                 "Pregrijavanje",
-                "Začepljena ventil",
+                "Začepljeni ventil",
                 "Greška senzora",
                 "Klizanje zupčanika",
                 "Pumpa stala",
@@ -194,58 +226,62 @@ else
         DateTime pocetakRaspona = DateTime.SpecifyKind(new DateTime(DateTime.Now.Year, 1, 1), DateTimeKind.Utc);
         DateTime krajRaspona = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
-        if(kvarovi.Count > 0)
+        if (kvarovi.Count > 0)
         {
-            int index = r.Next(kvarovi.Count);
-            Kvar nasumicanKvar = kvarovi[index];
-            bool kvarPrijeNasumicnog = r.Next(0, 2) == 0 || nasumicanKvar.VrijemeZavrsetka == null;
-            Kvar susjedniKvar;
-            if (!kvarPrijeNasumicnog)
+            var sortiraniKvarovi = kvarovi.OrderBy(k => k.VrijemePocetka).ToList();
+
+            int index = r.Next(sortiraniKvarovi.Count);
+            Kvar odabraniKvar = sortiraniKvarovi[index];
+
+            bool prostorPrije = r.Next(0, 2) == 0;
+
+            if (prostorPrije)
             {
-                susjedniKvar = index > 0 ? kvarovi[index - 1] : null;
+                if (index > 0)
+                {
+                    Kvar prethodniKvar = sortiraniKvarovi[index - 1];
+
+                    if (prethodniKvar.VrijemeZavrsetka.HasValue)
+                    {
+                        pocetakRaspona = prethodniKvar.VrijemeZavrsetka.Value;
+                    }
+                    else
+                    {
+                        pocetakRaspona = odabraniKvar.VrijemePocetka;
+                    }
+                }
+
+                krajRaspona = odabraniKvar.VrijemePocetka;
             }
             else
             {
-                susjedniKvar = index < (kvarovi.Count - 1) ? kvarovi[index + 1] : null;
+                pocetakRaspona = odabraniKvar.VrijemeZavrsetka ?? odabraniKvar.VrijemePocetka.AddHours(1);
+
+                if (index < sortiraniKvarovi.Count - 1)
+                {
+                    Kvar sljedeciKvar = sortiraniKvarovi[index + 1];
+                    krajRaspona = sljedeciKvar.VrijemePocetka;
+                }
             }
 
-            if (!kvarPrijeNasumicnog)
+            if (pocetakRaspona >= krajRaspona)
             {
-                if (susjedniKvar != null)
-                {
-
-                    pocetakRaspona = nasumicanKvar.VrijemeZavrsetka ?? pocetakRaspona;
-                    krajRaspona = susjedniKvar.VrijemePocetka;
-                }
-                else
-                {
-                    pocetakRaspona = nasumicanKvar.VrijemeZavrsetka ?? pocetakRaspona;
-                }
-            }
-            else
-            {
-                if (susjedniKvar != null)
-                {
-                    pocetakRaspona = susjedniKvar.VrijemeZavrsetka ?? pocetakRaspona;
-                    krajRaspona = nasumicanKvar.VrijemePocetka;
-                }
-                else
-                {
-                    krajRaspona = nasumicanKvar.VrijemePocetka;
-                }
+                krajRaspona = pocetakRaspona.AddHours(1);
             }
         }
 
-        var range = (krajRaspona - pocetakRaspona).TotalSeconds;
-        double randomSekunde1 = r.NextDouble() * range;
-        double randomSekunde2 = r.NextDouble() * range;
+        var rangePocetka = (krajRaspona - pocetakRaspona).TotalSeconds;
+        double sekundePocetka = r.NextDouble() * rangePocetka;
+        var vrijemePocetkaKvara = pocetakRaspona.AddSeconds(sekundePocetka);
+
+        var rangeKraja = (krajRaspona - vrijemePocetkaKvara).TotalSeconds;
+        double sekundeKraja = r.NextDouble() * rangeKraja * 1 / 10;
+        var vrijemeKrajaKvara = vrijemePocetkaKvara.AddSeconds(sekundeKraja);
+
 
 
         noviKvar.Ime = imenaKvarova[r.Next(imenaKvarova.Count)];
         noviKvar.Opis = opis;
-        var vrijemePocetkaKvara = randomSekunde1 < randomSekunde2 ? pocetakRaspona.AddSeconds(randomSekunde1) : pocetakRaspona.AddSeconds(randomSekunde2);
-        var vrijemeKrajaKvara = randomSekunde1 > randomSekunde2 ? pocetakRaspona.AddSeconds(randomSekunde1) : pocetakRaspona.AddSeconds(randomSekunde2);
-
         datumPocetkaUnos = vrijemePocetkaKvara.Date;
         vrijemePocetkaUnos = TimeOnly.FromDateTime(vrijemePocetkaKvara);
         datumZavrsetkaUnos = vrijemeKrajaKvara.Date;
@@ -316,10 +352,11 @@ else
 
     async Task DodajKvar()
     {
-        noviKvar = await IzgradiKvar();
-        if (noviKvar == null) return;
+        Kvar kvarZaIzgradnju = await IzgradiKvar();
+        if (kvarZaIzgradnju == null) return;
+        noviKvar = kvarZaIzgradnju;
 
-        if (kvarovi.Any(k => k.VrijemeZavrsetka == null))
+        if (kvarovi.Any(k => k.VrijemeZavrsetka == null) && noviKvar.VrijemeZavrsetka == null)
         {
             await JsRuntime.InvokeVoidAsync("alert", "Na stroju već postoji aktivan kvar!");
             return;
@@ -427,6 +464,8 @@ else
 
         var labels = new List<string>();
         List<Point> points = new List<Point>();
+        DateTime pocetakRaspona = DateTime.SpecifyKind(new DateTime(DateTime.Now.Year, 1, 1), DateTimeKind.Utc);
+
 
         // kvarovi su originalno sortirani od najnovijeg prema najstarijima kako bi aktivan bio pri vrhu liste
         List<Kvar> kvaroviUnatrag = new List<Kvar>(kvarovi);
@@ -435,6 +474,14 @@ else
         double najstarijiDatumTicks = 0;
         foreach (var kvar in kvaroviUnatrag)
         {
+            if (kvar.VrijemeZavrsetka != null && kvar.VrijemeZavrsetka.Value < pocetakRaspona)
+                continue;
+            else if(points.Count == 0)
+            {
+                points.Add(new Point(pocetakRaspona.Ticks, 0));
+                labels.Add(pocetakRaspona.ToString("yyyy-MM-ddTHH:mm:ss"));
+            }
+
             double xStart = kvar.VrijemePocetka.Ticks;
             if (najstarijiDatumTicks == 0)
                 najstarijiDatumTicks = xStart;
@@ -454,7 +501,7 @@ else
 
         for(int i = 0; i < points.Count; i++)
         {
-            points[i].x = (points[i].x - najstarijiDatumTicks) / (trenutnoVrijeme - najstarijiDatumTicks) * 100;
+            points[i].x = (points[i].x - pocetakRaspona.Ticks) / (trenutnoVrijeme - pocetakRaspona.Ticks) * 100;
         }
 
         for (int i = 0; i < MAKSIMALAN_BROJ_POZIVA_CRTANJA_GRAFA; i++)
@@ -469,6 +516,25 @@ else
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }
         }
+
+        List<double?> postotakVremenaUKvaru = IzracunajPostotakVremenaUKvaru(pocetakRaspona);
+
+        var data = new PieChartDataset
+        {
+            Data = postotakVremenaUKvaru,
+            BackgroundColor = new List<string> { "#4CAF50", "#F44336" }
+        };
+
+        var chartData = new ChartData
+        {
+            Labels = new List<string> { "Postotak vremena stroja u pogonu", "Postotak vremena stroja u kvaru" },
+            Datasets = new List<IChartDataset> { data }
+        };
+        var options = new PieChartOptions();
+
+        await pieChart.InitializeAsync(chartData, options);
+        await pieChart.UpdateAsync(chartData, options);
+        
     }
 
  }
